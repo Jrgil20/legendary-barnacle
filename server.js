@@ -10,12 +10,19 @@ const app = express();
 // Middleware para parsear el cuerpo de las solicitudes POST
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Middleware para servir archivos estáticos
+app.use(express.static('public'));
 
 // Define el puerto en el que se ejecutará tu servidor.
 const port = 3000;
 
 // Objeto de usuarios para este ejemplo
 const users = {};
+
+// Ruta para servir index.html
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 // Ruta POST para el registro
 app.post('/register', (req, res) => {
