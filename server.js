@@ -31,6 +31,19 @@ app.post('/register', (req, res) => {
   }
 });
 
+// Ruta POST para el inicio de sesión
+app.post('/login', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (users[username] && users[username].password === password) {
+    // En una aplicación real, deberías crear una sesión y enviar una cookie al cliente
+    res.status(200).send('Inicio de sesión exitoso');
+  } else {
+    res.status(400).send('Nombre de usuario o contraseña incorrectos');
+  }
+});
+
 // Objeto de usuarios para este ejemplo
 const users = {};
 
