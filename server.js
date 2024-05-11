@@ -14,6 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Define el puerto en el que se ejecutará tu servidor.
 const port = 3000;
 
+// Objeto de usuarios para este ejemplo
+const users = {};
+
 // Ruta POST para el registro
 app.post('/register', (req, res) => {
   const username = req.body.username;
@@ -44,8 +47,6 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Objeto de usuarios para este ejemplo
-const users = {};
 
 // Define una ruta GET para la ruta raíz ("/"). Cuando alguien visita esta ruta, la función de devolución de llamada se ejecuta.
 // La función de devolución de llamada toma dos argumentos: un objeto de solicitud (que contiene información sobre la solicitud) y un objeto de respuesta (que se utiliza para enviar la respuesta).
