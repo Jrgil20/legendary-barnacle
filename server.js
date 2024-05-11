@@ -2,6 +2,8 @@
 const express = require('express');
 // importa el módulo body-parser. Esto te permite usar la funcionalidad de body-parser en tu archivo.
 const bodyParser = require('body-parser');
+// Importa el módulo fs. Esto te permite usar la funcionalidad de fs en tu archivo.
+const fs = require('fs');
 
 
 // Crea una nueva aplicación Express. Esto es lo que realmente maneja las solicitudes y respuestas.
@@ -17,7 +19,13 @@ app.use(express.static('public'));
 const port = 3000;
 
 // Objeto de usuarios para este ejemplo
-const users = {};
+let users = {};
+try {
+  const data = fs.readFileSync('users.json', 'utf8');
+  users = JSON.parse(data);
+} catch (err) {
+  console.error(err);
+}
 
 // Ruta para servir index.html
 app.get('/', (req, res) => {
@@ -37,6 +45,7 @@ app.post('/register', (req, res) => {
     // En una aplicación real, nunca debes almacenar las contraseñas en texto plano
     // Deberías usar un algoritmo de hash como bcrypt
     users[username] = { password: password };
+    fs.writeFileSync('users.json', JSON.stringify(users));
     res.status(200).send('Usuario registrado con éxito');
   }
 });
