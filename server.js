@@ -1,11 +1,38 @@
 // Importa el módulo Express. Esto te permite usar la funcionalidad de Express en tu archivo.
 const express = require('express');
+// importa el módulo body-parser. Esto te permite usar la funcionalidad de body-parser en tu archivo.
+const bodyParser = require('body-parser');
+
 
 // Crea una nueva aplicación Express. Esto es lo que realmente maneja las solicitudes y respuestas.
 const app = express();
 
+// Middleware para parsear el cuerpo de las solicitudes POST
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
 // Define el puerto en el que se ejecutará tu servidor.
 const port = 3000;
+
+// Ruta POST para el registro
+app.post('/register', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // Aquí deberías agregar validaciones para los datos de entrada
+
+  if (users[username]) {
+    res.status(400).send('El nombre de usuario ya existe');
+  } else {
+    // En una aplicación real, nunca debes almacenar las contraseñas en texto plano
+    // Deberías usar un algoritmo de hash como bcrypt
+    users[username] = { password: password };
+    res.status(200).send('Usuario registrado con éxito');
+  }
+});
+
+// Objeto de usuarios para este ejemplo
+const users = {};
 
 // Define una ruta GET para la ruta raíz ("/"). Cuando alguien visita esta ruta, la función de devolución de llamada se ejecuta.
 // La función de devolución de llamada toma dos argumentos: un objeto de solicitud (que contiene información sobre la solicitud) y un objeto de respuesta (que se utiliza para enviar la respuesta).
