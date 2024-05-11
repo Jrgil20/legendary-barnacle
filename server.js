@@ -10,7 +10,7 @@ const fs = require('fs');
 const app = express();
 
 // Middleware para parsear el cuerpo de las solicitudes POST
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Middleware para servir archivos estáticos
 app.use(express.static('public'));
